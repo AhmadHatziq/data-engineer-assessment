@@ -8,7 +8,10 @@ import psycopg2
 conn = psycopg2.connect("host=127.0.0.1 dbname=postgres user=postgres password=password")
 conn.set_session(autocommit=True)
 cur = conn.cursor()
-conn.close()
+
+# Drop table if it already exists. 
+drop_table_command = "DROP TABLE IF EXISTS daily_stock;"
+cur.execute(drop_table_command)
 
 # Create table. 
 create_table_command = """
