@@ -30,6 +30,11 @@ CREATE TABLE IF NOT EXISTS msft_stock (
 """
 cur.execute(create_table_command)
 
+# Define insert statement 
+msft_stock_table_insert = (""" 
+INSERT INTO msft_stock (stock_symbol, date, open, high, low, close, adj_close, volume) 
+    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s) 
+""")
 
 
 # Read in csv file
@@ -45,8 +50,15 @@ for index, row in market_df.iterrows():
     low_string = row['Low'],
     close_string = row['Close'],
     adj_close_string = row['Adj Close'],
-    volume_string = row['Volume']    
+    volume_string = row['Volume']  
+    
+    # Store values into a single list 
+    row_data = ['MSFT', date_string, open_string, high_string, low_string, 
+                close_string, adj_close_string, volume_string]
+    
+    # Store into DB 
+    cur.execute(msft_stock_table_insert, row_data)
 
 
-
+# Close connection to DB. 
 conn.close()
