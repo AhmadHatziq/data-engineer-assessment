@@ -14,20 +14,9 @@ cur = conn.cursor()
 drop_table_command = "DROP TABLE IF EXISTS msft_stock;"
 cur.execute(drop_table_command)
 
-# Create table. 
-create_table_command = """
-CREATE TABLE IF NOT EXISTS msft_stock (
-    id SERIAL PRIMARY KEY, 
-    stock_symbol VARCHAR(10) NOT NULL, 
-    date DATE NOT NULL, 
-    open FLOAT NOT NULL, 
-    high FLOAT NOT NULL, 
-    low FLOAT NOT NULL, 
-    close FLOAT NOT NULL, 
-    adj_close FLOAT NOT NULL, 
-    volume BIGINT NOT NULL
-                    ); 
-"""
+# Run CREATE TABLE command. 
+with open('create_table.txt', 'r') as create_table_file: 
+    create_table_command = create_table_file.read()
 cur.execute(create_table_command)
 
 # Define insert statement 
