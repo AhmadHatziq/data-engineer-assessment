@@ -1,0 +1,13 @@
+-- Quarterly average 
+SELECT 
+  EXTRACT(YEAR FROM date) AS year,
+  CEIL(EXTRACT(MONTH FROM date) / 3.0) AS quarter,
+  AVG(high) AS average_high,
+  AVG(low) AS average_low,
+  AVG(volume) AS average_volume
+FROM
+  msft_stock
+GROUP BY
+  year, quarter
+ORDER BY
+  year, quarter; 
