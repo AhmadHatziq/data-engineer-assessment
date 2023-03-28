@@ -3,6 +3,7 @@
 Python script to load data from csv into DB. 
 """
 import psycopg2
+import pandas as pd 
 
 # Connect to postgres. 
 conn = psycopg2.connect("host=127.0.0.1 dbname=postgres user=postgres password=password")
@@ -30,12 +31,21 @@ CREATE TABLE IF NOT EXISTS msft_stock (
 cur.execute(create_table_command)
 
 
+
 # Read in csv file
-'''
-market_df = pd.read_csv('MSFT.csv') 
+market_df = pd.read_csv('MSFT.csv')
+
+# Iterate over each row
 for index, row in market_df.iterrows(): 
-    row_open = row['Opemn']'''
     
+    # Extract values 
+    date_string = row['Date'],
+    open_string = row['Open'],
+    high_string = row['High'],
+    low_string = row['Low'],
+    close_string = row['Close'],
+    adj_close_string = row['Adj Close'],
+    volume_string = row['Volume']    
 
 
 
