@@ -11,7 +11,7 @@ conn.set_session(autocommit=True)
 cur = conn.cursor()
 
 # Drop table if it already exists. 
-drop_table_command = "DROP TABLE IF EXISTS daily_stock;"
+drop_table_command = "DROP TABLE IF EXISTS msft_stock;"
 cur.execute(drop_table_command)
 
 # Create table. 
@@ -59,6 +59,15 @@ for index, row in market_df.iterrows():
     # Store into DB 
     cur.execute(msft_stock_table_insert, row_data)
 
+# Sanity check: Check that the number of rows in the DB and CSV matches. 
+print('CSV length: ', len(market_df))
+cur.execute("SELECT COUNT(*) FROM msft_stock;")
+table_length = cur.fetchone()[0]
+print('Table length: ', table_length)
+
+if table_length != len(market_df): 
+    print('Unequal values ingested.')
 
 # Close connection to DB. 
 conn.close()
+print("Ingesting complete.")
