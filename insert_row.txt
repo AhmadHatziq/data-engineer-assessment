@@ -1,0 +1,2 @@
+INSERT INTO msft_stock (stock_symbol, date, open, high, low, close, adj_close, volume) 
+    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s) 

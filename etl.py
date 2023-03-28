@@ -20,11 +20,8 @@ with open('create_table.txt', 'r') as create_table_file:
 cur.execute(create_table_command)
 
 # Define insert statement 
-msft_stock_table_insert = (""" 
-INSERT INTO msft_stock (stock_symbol, date, open, high, low, close, adj_close, volume) 
-    VALUES ( %s, %s, %s, %s, %s, %s, %s, %s) 
-""")
-
+with open('insert_row.txt', 'r') as insert_row_file: 
+    insert_command = insert_row_file.read()
 
 # Read in csv file
 market_df = pd.read_csv('MSFT.csv')
@@ -46,7 +43,7 @@ for index, row in market_df.iterrows():
                 close_string, adj_close_string, volume_string]
     
     # Store into DB 
-    cur.execute(msft_stock_table_insert, row_data)
+    cur.execute(insert_command, row_data)
 
 # Sanity check: Check that the number of rows in the DB and CSV matches. 
 print('CSV length: ', len(market_df))
