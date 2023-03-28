@@ -18,7 +18,7 @@ create_table_command = """
 CREATE TABLE IF NOT EXISTS msft_stock (
     id SERIAL PRIMARY KEY, 
     stock_symbol VARCHAR(10) NOT NULL, 
-    data DATE NOT NULL, 
+    date DATE NOT NULL, 
     open FLOAT NOT NULL, 
     high FLOAT NOT NULL, 
     low FLOAT NOT NULL, 
