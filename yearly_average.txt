@@ -1,0 +1,12 @@
+-- Yearly Average 
+SELECT 
+  EXTRACT(YEAR FROM date) AS year,
+  AVG(high) AS average_high_weekly,
+  AVG(low) AS average_low_weekly,
+  AVG(volume) AS average_volume_weekly
+FROM
+  msft_stock
+GROUP BY
+  year
+ORDER BY
+  year; 
